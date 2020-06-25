@@ -121,12 +121,6 @@ html, body, #app {
   margin-bottom: 0 !important;
 }
 
-.count-section {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-}
-
 .fas {
   padding-left: 5px;
 }
