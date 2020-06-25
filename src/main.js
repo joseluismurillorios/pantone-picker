@@ -4,7 +4,8 @@ import './registerServiceWorker';
 import router from './router';
 import store from './store';
 
-import '@/assets/styles/app.css';
+import '@/assets/styles/tailwind.css';
+// import './assets/tailwind.css';
 
 Vue.config.productionTip = false;
 
