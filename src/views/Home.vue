@@ -1,6 +1,7 @@
 <template>
   <div class="home p-4 bg-gray-200">
     <ColorList />
+  </div>
 </template>
 
 <script>
