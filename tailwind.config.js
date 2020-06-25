@@ -1,11 +1,28 @@
 /* eslint-disable */
 module.exports = {
-  purge: [],
+  // purge: [],
+  purge: {
+    mode: 'all',
+    content: ['./src/**/*.vue'],
+  },
   target: 'relaxed',
   prefix: '',
   important: false,
   separator: ':',
   theme: {
+    extend: {
+      fontSize: {
+        '2xs': '9px',
+      },
+      width: {
+        '1/7': 'calc(100% / 7)',
+        '1/19': 'calc(100% / 19)',
+      },
+
+      zIndex: {
+        '-10': '-10',
+      },
+    }
   //   screens: {
   //     sm: '640px',
   //     md: '768px',
@@ -250,19 +267,19 @@ module.exports = {
   //     serif: ['Georgia', 'Cambria', '"Times New Roman"', 'Times', 'serif'],
   //     mono: ['Menlo', 'Monaco', 'Consolas', '"Liberation Mono"', '"Courier New"', 'monospace'],
   //   },
-    fontSize: {
-      '2xs': '0.6rem',
-      xs: '0.75rem',
-      sm: '0.875rem',
-      base: '1rem',
-      lg: '1.125rem',
-      xl: '1.25rem',
-      '2xl': '1.5rem',
-      '3xl': '1.875rem',
-      '4xl': '2.25rem',
-      '5xl': '3rem',
-      '6xl': '4rem',
-    },
+    // fontSize: {
+    //   '2xs': '0.6rem',
+    //   xs: '0.75rem',
+    //   sm: '0.875rem',
+    //   base: '1rem',
+    //   lg: '1.125rem',
+    //   xl: '1.25rem',
+    //   '2xl': '1.5rem',
+    //   '3xl': '1.875rem',
+    //   '4xl': '2.25rem',
+    //   '5xl': '3rem',
+    //   '6xl': '4rem',
+    // },
   //   fontWeight: {
   //     hairline: '100',
   //     thin: '200',
