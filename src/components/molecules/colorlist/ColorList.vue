@@ -66,6 +66,10 @@ export default {
   },
   created() {
     this.groupColors();
+    window.addEventListener('scroll', this.exit);
+  },
+  beforeDestroy() {
+    window.removeEventListener('scroll', this.exit);
   },
   methods: {
     groupColors() {
