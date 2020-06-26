@@ -24,7 +24,7 @@
         </svg>
       </button>
     </div>
-    <div class="w-full block flex-grow md:flex md:items-center md:w-auto">
+    <div class="w-full hidden md:block flex-grow md:flex md:items-center md:w-auto">
       <div class="text-sm md:flex-grow">
         <router-link
           to="/"

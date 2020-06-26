@@ -9,7 +9,7 @@
             v-if="color.name !== 'NextPage'"
             :color="color"
             :key="'group-' + i"
-            classProp="color relative w-1/7"
+            classProp="color relative w-1/7 lg:w-1/19"
             :onEnter="enter"
             :onExit="exit"
             :onCopy="showToast"
@@ -168,7 +168,7 @@ export default {
       this.$set(this.tooltip, 'show', false);
     },
     search: throttle((term, clrs, fn) => {
-      if (term.length > 2) {
+      if (term.length > 1) {
         const sarchItems = clrs.filter((color) => (
           new RegExp(term, 'gi').test(color.name)
             || new RegExp(term, 'gi').test(color.components)

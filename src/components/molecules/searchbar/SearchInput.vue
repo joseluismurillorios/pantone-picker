@@ -1,6 +1,6 @@
 <template>
   <div
-    class="relative mx-auto flex items-center justify-between mt-4 md:mt-0 rounded-lg overflow-hidden text-gray-600 border-2 border-gray-300 bg-white"
+    class="relative flex items-center justify-between mt-0 rounded-lg overflow-hidden text-gray-600 border-2 border-gray-300 bg-white"
   >
     <input
       class="h-10 px-5 flex-1 text-sm focus:outline-none"
