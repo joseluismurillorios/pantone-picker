@@ -60,7 +60,6 @@ export default new Vuex.Store({
       const {
         filter: { term, attrs = ['name'] },
       } = state;
-      console.log({ term, attrs });
       if (term.length > 2) {
         const sarchItems = filterColor(term, attrs);
         commit('updateResults', sarchItems);

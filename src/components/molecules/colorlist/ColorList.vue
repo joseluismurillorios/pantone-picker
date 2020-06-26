@@ -35,16 +35,14 @@
         </div>
       </template>
     </div>
-    <transition name="fade">
-      <div
-        class="tooltip fixed z-10 bg-black px-4 py-1 rounded text-white text-2xs font-bold tracking-wider transform -translate-x-1/2 truncate"
-        :style="{ left: `${tooltip.x}px`, top: `${tooltip.y}px` }"
-        v-if="tooltip.show"
-        transition="fade"
-      >
-        {{tooltip.text}}
-      </div>
-    </transition>
+
+    <tooltip
+      className="bg-black px-4 py-1 rounded text-white text-2xs font-bold tracking-wider transform -translate-x-1/2 truncate"
+      :show="tooltip.show"
+      :x="tooltip.x"
+      :y="tooltip.y"
+      :text="tooltip.text"
+    />
 
     <transition name="fade">
       <div v-if="toast.show" class="toast__holder fixed z-10 right-0 top-0 p-4 md:p-6">
@@ -86,12 +84,15 @@
 <script>
 import { mapState, mapGetters } from 'vuex';
 
+import tooltip from '@/components/atoms/tooltip/tooltip.vue';
+
 import ColorItem from './ColorItem.vue';
 
 export default {
   name: 'ColorList',
   components: {
     ColorItem,
+    tooltip,
   },
   data: () => ({
     tooltip: {

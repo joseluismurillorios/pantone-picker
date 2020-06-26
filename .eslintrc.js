@@ -17,7 +17,7 @@ module.exports = {
       "error",
       {
         "code": 100,
-        "ignorePattern": '^\\s+(class|d)=\"([\\s\\S]*?)\"'},
+        "ignorePattern": '^\\s+(class|className|d)=\"([\\s\\S]*?)\"'},
     ],
   },
 };
