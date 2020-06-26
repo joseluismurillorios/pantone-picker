@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="['color__item', classProp]">
     <p
       class="
         color__preview
@@ -13,8 +13,10 @@
       :style="{ 'background-color': color.components, 'color': color.components }"
       v-on:click="copy(color.components)"
       :ref="color.components"
+      v-on:mouseenter="enter(color.name)"
+      v-on:mouseout="exit(color.name)"
     >
-      {{ color.components }}
+      {{color.components}}
     </p>
     <!-- <span class="color__name text-2xs">
       {{ color.name.replace('PANTONE', '') }}
@@ -37,19 +39,32 @@
 <script>
 export default {
   name: 'ColorList',
+  // data: () => ({
+  //   rect: {},
+  // }),
   props: {
     color: Object,
+    classProp: String,
+    onEnter: Function,
+    onExit: Function,
   },
   // mounted() {
   //   // console.log(this.$props.color);
   //   const elem = this.$refs[this.$props.color.components];
-  //   elem.addEventListener('copy', this.copyToClipboard);
+  //   this.rect = elem.getBoundingClientRect();
+  //   window.addEventListener('resize', this.resize);
   // },
   // beforeDestroy() {
-  //   const elem = this.$refs[this.$props.color.components];
-  //   elem.removeEventListener('copy', this.copyToClipboard);
+  //   window.removeEventListener('resize', this.resize);
+  //   clearTimeout(this.timeout);
   // },
   methods: {
+    enter(e) {
+      this.$props.onEnter(e, this.$refs[this.$props.color.components]);
+    },
+    exit(e) {
+      this.$props.onExit(e, this.$refs[this.$props.color.components]);
+    },
     copy(str) {
       const el = document.createElement('textarea');
       el.value = str;
