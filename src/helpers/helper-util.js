@@ -1,6 +1,6 @@
-export const debounce = (func, wait, immediate, ...args) => {
+export const debounce = (func, wait, immediate) => {
   let timeout;
-  return () => {
+  return (...args) => {
     const context = this;
     const later = () => {
       timeout = null;
@@ -13,12 +13,12 @@ export const debounce = (func, wait, immediate, ...args) => {
   };
 };
 
-export const throttle = (callback, del, ...args) => {
+export const throttle = (callback, del) => {
   let isThrottled = false;
   let arg;
   let context;
 
-  function wrapper() {
+  function wrapper(...args) {
     if (isThrottled) {
       arg = args;
       context = this;
@@ -52,6 +52,8 @@ export const isIE = /MSIE|Trident/.test(userAgent);
 
 export const isHQ = Math.max(window.innerWidth, window.innerHeight) > 1920 ? 'hq' : 'lq';
 
-export const isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator.standalone);
+export const isInStandaloneMode = () => (
+  'standalone' in window.navigator) && (window.navigator.standalone
+);
 
 export const isCordova = () => !!(window.cordova);

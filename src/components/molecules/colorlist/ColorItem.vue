@@ -1,19 +1,11 @@
 <template>
-  <div :class="['color__item', classProp]">
+  <div :class="['color__item mb-1', classProp]">
     <p
-      class="
-        color__preview
-        h-6
-        text-2xs
-        cursor-pointer
-        flex
-        items-center
-        justify-center
-      "
+      class="color__preview h-8 md:h-5 text-2xs cursor-pointer flex items-center justify-center"
       :style="{ 'background-color': color.components, 'color': color.components }"
-      v-on:click="copy(color.components)"
+      v-on:click="copy(color.components, color.name)"
       :ref="color.components"
-      v-on:mouseenter="enter(color.name)"
+      v-on:mouseenter="enter(color.name.replace('PANTONE', ''))"
       v-on:mouseout="exit(color.name)"
     >
       {{color.components}}
@@ -22,14 +14,7 @@
       {{ color.name.replace('PANTONE', '') }}
     </span> -->
     <p
-      class="
-        color__hex
-        text-2xs
-        tracking-wider
-        font-bold
-        hidden
-        md:block
-      "
+      class="color__hex text-2xs tracking-wider font-bold hidden md:block"
     >
       {{ color.components }}
     </p>
@@ -39,25 +24,13 @@
 <script>
 export default {
   name: 'ColorList',
-  // data: () => ({
-  //   rect: {},
-  // }),
   props: {
     color: Object,
     classProp: String,
     onEnter: Function,
     onExit: Function,
+    onCopy: Function,
   },
-  // mounted() {
-  //   // console.log(this.$props.color);
-  //   const elem = this.$refs[this.$props.color.components];
-  //   this.rect = elem.getBoundingClientRect();
-  //   window.addEventListener('resize', this.resize);
-  // },
-  // beforeDestroy() {
-  //   window.removeEventListener('resize', this.resize);
-  //   clearTimeout(this.timeout);
-  // },
   methods: {
     enter(e) {
       this.$props.onEnter(e, this.$refs[this.$props.color.components]);
@@ -65,7 +38,7 @@ export default {
     exit(e) {
       this.$props.onExit(e, this.$refs[this.$props.color.components]);
     },
-    copy(str) {
+    copy(str, name) {
       const el = document.createElement('textarea');
       el.value = str;
       el.setAttribute('readonly', '');
@@ -82,6 +55,7 @@ export default {
         document.getSelection().removeAllRanges();
         document.getSelection().addRange(selected);
       }
+      this.$props.onCopy(str, name);
     },
   },
 };

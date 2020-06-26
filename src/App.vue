@@ -11,9 +11,11 @@
 
 <script>
 import Router from '@/router/Router.vue';
+import store from '@/store';
 
 export default {
   name: 'App',
+  store,
   components: {
     Router,
   },
