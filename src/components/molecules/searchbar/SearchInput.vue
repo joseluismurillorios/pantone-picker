@@ -1,6 +1,6 @@
 <template>
   <div
-    class="relative flex items-center justify-between mt-0 rounded-lg overflow-hidden text-gray-600 border-2 border-gray-300 bg-white"
+    class="relative w-full  sm:w-auto flex items-center justify-between mt-0 rounded-lg overflow-hidden text-gray-600 border-2 border-gray-300 bg-white"
   >
     <input
       class="h-10 px-5 flex-1 text-sm focus:outline-none"
@@ -8,7 +8,7 @@
       name="search"
       placeholder="Search"
       :value="term"
-      @input="updateMessage"
+      @input="updateTerm"
     />
     <button
       type="submit"
@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 
 export default {
   name: 'Router',
@@ -46,10 +46,16 @@ export default {
       term: (state) => state.filter.term,
     }),
   },
+  // mounted() {
+  //   this.update('eeee');
+  // },
   methods: {
-    updateMessage(e) {
-      this.$store.commit('updateMessage', e.target.value);
+    updateTerm(e) {
+      this.update(e.target.value);
     },
+    ...mapActions({
+      update: 'updateTerm', // map `this.add()` to `this.$store.dispatch('increment')`
+    }),
   },
 };
 </script>

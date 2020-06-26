@@ -1,7 +1,7 @@
 <template>
   <div class="colors__list p-4 mb-4 w-full bg-white rounded shadow-sm">
     <div class="colors__list--inner flex items-center justify-between">
-      <label for="grouped">
+      <label class="hidden sm:inline" for="grouped">
         <span class="mr-2 cursor-pointer select-none text-sm">Hex</span>
         <div class="switch">
           <input

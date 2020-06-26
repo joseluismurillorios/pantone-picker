@@ -1,4 +1,4 @@
-const colors = [
+export const rawColors = [
   { name: 'PANTONE Yellow C', components: '#FFDC00' },
   { name: 'PANTONE Yellow 012 C', components: '#FFD600' },
   { name: 'PANTONE Orange 021 C', components: '#FF5200' },
@@ -1361,4 +1361,35 @@ const colors = [
   { name: 'PANTONE Black 7 C', components: '#3D3935' },
 ];
 
-export default colors;
+export const groupColors = () => {
+  const groups = {};
+  let currentRowIndex = 0;
+  let currentIndex = 0;
+  for (let i = 0; i < rawColors.length; i += 1) {
+    if (rawColors[i].name === 'NextPage') {
+      currentRowIndex += 1;
+      currentIndex = 0;
+    } else {
+      if (i !== 0 && (currentIndex + 1) % 8 === 0) {
+        currentRowIndex += 1;
+        currentIndex = 0;
+      }
+      if (!groups[currentRowIndex]) {
+        groups[currentRowIndex] = [];
+      }
+      groups[currentRowIndex].push(rawColors[i]);
+      currentIndex += 1;
+    }
+  }
+  return groups;
+};
+
+export const colors = rawColors.filter((color) => color.name !== 'NextPage');
+
+export const filterColor = (term = '', props = []) => (
+  colors.filter((color) => (
+    props.some((prop) => new RegExp(term, 'gi').test(color[prop]))
+  ))
+);
+
+export const colorGroups = groupColors();

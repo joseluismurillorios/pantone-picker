@@ -1,17 +1,17 @@
 <template>
   <div class="colors__list p-4 w-full bg-white rounded shadow-sm">
     <div class="colors__list--inner flex flex-wrap">
-      <template v-if="sarchItems.length > 0">
+      <template v-if="results.length > 0">
         <template
-          v-for="(color, i) in sarchItems"
+          v-for="(color, i) in results"
         >
           <ColorItem
             v-if="color.name !== 'NextPage'"
             :color="color"
             :key="'group-' + i"
             classProp="color relative w-1/7 lg:w-1/19"
-            :onEnter="enter"
-            :onExit="exit"
+            :onEnter="showTooltip"
+            :onExit="closeTooltip"
             :onCopy="showToast"
           />
         </template>
@@ -28,8 +28,8 @@
             :key="color.name + j"
             :color="color"
             classProp="color relative w-1/7 lg:w-full"
-            :onEnter="enter"
-            :onExit="exit"
+            :onEnter="showTooltip"
+            :onExit="closeTooltip"
             :onCopy="showToast"
           />
         </div>
@@ -84,10 +84,8 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
-import { throttle } from '@/helpers/helper-util';
-import colors from '@/helpers/helper-color';
 import ColorItem from './ColorItem.vue';
 
 export default {
@@ -96,9 +94,6 @@ export default {
     ColorItem,
   },
   data: () => ({
-    colors,
-    sarchItems: [],
-    groups: {},
     tooltip: {
       x: 0,
       y: 0,
@@ -113,48 +108,29 @@ export default {
   }),
   computed: {
     ...mapState({
+      groups: (state) => state.colorGroups,
       term: (state) => state.filter.term,
+      results: (state) => state.filter.results,
+    }),
+    ...mapGetters({
+      resultsCount: 'resultsCount',
     }),
   },
   created() {
-    this.groupColors();
-    this.$store.watch(
-      (state) => state.filter.term,
-      (newValue) => {
-        this.search(newValue, this.colors, this.updateSearchItems);
-      },
-    );
-    window.addEventListener('scroll', this.exit);
+    window.addEventListener('scroll', this.closeTooltip);
   },
   mounted() {
     console.log(this.$store);
+    console.log(this.resultsCount);
   },
   beforeDestroy() {
-    window.removeEventListener('scroll', this.exit);
+    window.removeEventListener('scroll', this.closeTooltip);
   },
   methods: {
-    groupColors() {
-      this.groups = {};
-      let currentRowIndex = 0;
-      let currentIndex = 0;
-      for (let i = 0; i < colors.length; i += 1) {
-        if (colors[i].name === 'NextPage') {
-          currentRowIndex += 1;
-          currentIndex = 0;
-        } else {
-          if (i !== 0 && (currentIndex + 1) % 8 === 0) {
-            currentRowIndex += 1;
-            currentIndex = 0;
-          }
-          if (!this.groups[currentRowIndex]) {
-            this.groups[currentRowIndex] = [];
-          }
-          this.groups[currentRowIndex].push(colors[i]);
-          currentIndex += 1;
-        }
-      }
+    closeTooltip() {
+      this.$set(this.tooltip, 'show', false);
     },
-    enter(e, elem) {
+    showTooltip(e, elem) {
       const rect = elem.getBoundingClientRect();
       this.tooltip = {
         x: rect.x + (rect.width / 2),
@@ -163,23 +139,6 @@ export default {
         text: e,
         show: true,
       };
-    },
-    exit() {
-      this.$set(this.tooltip, 'show', false);
-    },
-    search: throttle((term, clrs, fn) => {
-      if (term.length > 1) {
-        const sarchItems = clrs.filter((color) => (
-          new RegExp(term, 'gi').test(color.name)
-            || new RegExp(term, 'gi').test(color.components)
-        ));
-        fn(sarchItems);
-      } else {
-        fn([]);
-      }
-    }, 500),
-    updateSearchItems(sarchItems) {
-      this.sarchItems = sarchItems;
     },
     closeToast() {
       this.$set(this.toast, 'show', false);
