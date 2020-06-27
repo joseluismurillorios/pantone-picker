@@ -119,10 +119,10 @@ export default {
   created() {
     window.addEventListener('scroll', this.closeTooltip);
   },
-  mounted() {
-    console.log(this.$store);
-    console.log(this.resultsCount);
-  },
+  // mounted() {
+  //   console.log(this.$store);
+  //   console.log(this.resultsCount);
+  // },
   beforeDestroy() {
     window.removeEventListener('scroll', this.closeTooltip);
   },
@@ -135,7 +135,7 @@ export default {
       this.tooltip = {
         x: rect.x + (rect.width / 2),
         // y: rect.y - rect.height + window.scrollY,
-        y: rect.y - rect.height - 5,
+        y: rect.y - 25,
         text: e,
         show: true,
       };
