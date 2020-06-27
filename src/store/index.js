@@ -27,9 +27,9 @@ const defaultStore = {
   colors,
   colorGroups,
   filter: {
-    term: '',
+    searchTerm: '',
     searchBy: '*',
-    options: [
+    searchOptions: [
       { text: 'All', value: '*' },
       { text: 'Name', value: 'name' },
       { text: 'Hex', value: 'components' },
@@ -50,34 +50,46 @@ export default new Vuex.Store({
     resultsCount: (state) => state.filter.results.length,
   },
   mutations: {
-    updateTerm(state, term) {
-      state.filter.term = term;
+    updateTerm(state, searchTerm) {
+      state.filter.searchTerm = searchTerm;
     },
     updateResults(state, results) {
       state.filter.results = results;
     },
+    updateSearch(state, payload) {
+      const {
+        name,
+        value,
+      } = payload;
+      state.filter[name] = value;
+    },
   },
   actions: {
-    updateTerm({ commit, dispatch }, term) {
-      commit('updateTerm', term);
-      if (term.length > 2) {
-        dispatch('updateSearchResultsThrottled', term);
+    updateTerm({ commit, dispatch }, searchTerm) {
+      commit('updateTerm', searchTerm);
+      if (searchTerm.length > 2) {
+        dispatch('updateSearchResultsThrottled', searchTerm);
       } else {
         commit('updateResults', []);
       }
     },
     updateSearchResults({ commit, state }) {
       const {
-        filter: { term, searchBy },
+        filter: { searchTerm, searchBy },
       } = state;
-      if (term.length > 2) {
-        const sarchItems = filterColor(term, getProps(searchBy));
+      if (searchTerm.length > 2) {
+        const sarchItems = filterColor(searchTerm, getProps(searchBy));
         commit('updateResults', sarchItems);
       }
     },
-    updateSearchResultsThrottled: throttle((context, term) => {
-      context.dispatch('updateSearchResults', term);
+    updateSearchResultsThrottled: throttle((context, searchTerm) => {
+      context.dispatch('updateSearchResults', searchTerm);
     }, 500),
+
+    updateSearch({ commit, dispatch, state }, payload) {
+      commit('updateSearch', payload);
+      dispatch('updateTerm', state.filter.searchTerm);
+    },
   },
   modules: {
   },

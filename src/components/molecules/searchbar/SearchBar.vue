@@ -17,8 +17,14 @@
         <span class="ml-2 cursor-pointer select-none text-sm">Name</span>
       </label>
       <div class="flex">
-        <dropdown className="mr-4" />
-        <searchinput :onUpdate="updateTerm" :text="term" />
+        <dropdown
+          className="mr-4"
+          name="searchBy"
+          :options="searchOptions"
+          :selected="searchBy"
+          :onChange="updateSearchBy"
+        />
+        <searchinput :onUpdate="updateTerm" :text="searchTerm" />
       </div>
     </div>
   </div>
@@ -38,17 +44,24 @@ export default {
   },
   computed: {
     ...mapState({
-      term: (state) => state.filter.term,
+      searchTerm: (state) => state.filter.searchTerm,
       searchBy: (state) => state.filter.searchBy,
-      options: (state) => state.filter.options,
+      searchOptions: (state) => state.filter.searchOptions,
     }),
+  },
+  mounted() {
+    console.log(this.searchOptions);
   },
   methods: {
     ...mapActions({
-      update: 'updateTerm', // map `this.add()` to `this.$store.dispatch('increment')`
+      updateSearchTerm: 'updateTerm',
+      updateSearch: 'updateSearch',
     }),
     updateTerm(e) {
-      this.update(e);
+      this.updateSearchTerm(e);
+    },
+    updateSearchBy(e) {
+      this.updateSearch(e);
     },
   },
 };

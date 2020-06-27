@@ -1394,9 +1394,9 @@ export const getProps = (opt = '*') => {
   return keys.filter((k) => k === opt);
 };
 
-export const filterColor = (term = '', props = []) => (
+export const filterColor = (searchTerm = '', props = []) => (
   colors.filter((color) => (
-    props.some((prop) => new RegExp(term, 'gi').test(color[prop]))
+    props.some((prop) => new RegExp(searchTerm, 'gi').test(color[prop]))
   ))
 );
 

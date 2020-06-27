@@ -5,8 +5,8 @@
   >
     <select
       class="appearance-none h-10 pl-5 pr-10 flex-1 text-sm focus:outline-none"
-      id="grid-state"
-      v-model="selected"
+      :name="name"
+      :value="selected"
       @change="changes"
     >
       <option v-for="option in options" :key="option.text" :value="option.value">
@@ -35,33 +35,33 @@ export default {
     // tooltip,
   },
   props: {
+    name: {
+      type: String,
+      default: '',
+    },
     className: {
       type: String,
       default: '',
     },
-  },
-  data: () => ({
-    selected: '*',
-    options: [
-      { text: 'All', value: '*' },
-      { text: 'Name', value: 'name' },
-      { text: 'Hex', value: 'components' },
-    ],
-    tooltip: {
-      x: 0,
-      y: 0,
-      show: true,
-      text: 'Tooltip',
+    selected: {
+      type: String,
+      default: '*',
     },
-  }),
+    onChange: {
+      type: Function,
+      default: () => {},
+    },
+    options: {
+      type: Array,
+      default: () => [],
+    },
+  },
   methods: {
     changes(e) {
-      console.log('changes', e.target.value);
-    },
-  },
-  watch: {
-    selected(newAge) {
-      console.log('log here', newAge);
+      this.onChange({
+        name: this.name,
+        value: e.target.value,
+      });
     },
   },
 };

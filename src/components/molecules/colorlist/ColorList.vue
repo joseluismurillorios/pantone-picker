@@ -110,7 +110,6 @@ export default {
   computed: {
     ...mapState({
       groups: (state) => state.colorGroups,
-      term: (state) => state.filter.term,
       results: (state) => state.filter.results,
     }),
     ...mapGetters({

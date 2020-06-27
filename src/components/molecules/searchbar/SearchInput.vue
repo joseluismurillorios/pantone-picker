@@ -7,7 +7,7 @@
       type="search"
       name="search"
       placeholder="Search"
-      :value="term"
+      :value="searchTerm"
       @input="updateTerm"
     />
     <button
@@ -43,7 +43,7 @@ export default {
   name: 'SearchInput',
   computed: {
     ...mapState({
-      term: (state) => state.filter.term,
+      searchTerm: (state) => state.filter.searchTerm,
     }),
   },
   // mounted() {

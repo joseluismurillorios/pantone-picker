@@ -44,16 +44,9 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
-
 export default {
   name: 'Router',
   components: {
-  },
-  computed: {
-    ...mapState({
-      term: (state) => state.filter.term,
-    }),
   },
   methods: {
   },
