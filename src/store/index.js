@@ -27,6 +27,7 @@ const defaultStore = {
   colors,
   colorGroups,
   filter: {
+    showNames: false,
     searchTerm: '',
     searchBy: '*',
     searchOptions: [
@@ -87,6 +88,7 @@ export default new Vuex.Store({
     }, 500),
 
     updateSearch({ commit, dispatch, state }, payload) {
+      console.log('updateSearch', payload);
       commit('updateSearch', payload);
       dispatch('updateTerm', state.filter.searchTerm);
     },
