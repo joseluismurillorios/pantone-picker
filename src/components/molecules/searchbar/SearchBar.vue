@@ -16,18 +16,40 @@
         </div>
         <span class="ml-2 cursor-pointer select-none text-sm">Name</span>
       </label>
-      <SearchInput />
+      <div class="flex">
+        <dropdown className="mr-4" />
+        <searchinput :onUpdate="updateTerm" :text="term" />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import SearchInput from './SearchInput.vue';
+import { mapState, mapActions } from 'vuex';
+
+import dropdown from '@/components/atoms/dropdown/dropdown.vue';
+import searchinput from '@/components/atoms/searchinput/searchinput.vue';
 
 export default {
   name: 'ColorList',
   components: {
-    SearchInput,
+    dropdown,
+    searchinput,
+  },
+  computed: {
+    ...mapState({
+      term: (state) => state.filter.term,
+      searchBy: (state) => state.filter.searchBy,
+      options: (state) => state.filter.options,
+    }),
+  },
+  methods: {
+    ...mapActions({
+      update: 'updateTerm', // map `this.add()` to `this.$store.dispatch('increment')`
+    }),
+    updateTerm(e) {
+      this.update(e);
+    },
   },
 };
 </script>

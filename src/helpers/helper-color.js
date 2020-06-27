@@ -1386,6 +1386,14 @@ export const groupColors = () => {
 
 export const colors = rawColors.filter((color) => color.name !== 'NextPage');
 
+export const getProps = (opt = '*') => {
+  const keys = Object.keys(colors[0]);
+  if (opt === '*') {
+    return keys;
+  }
+  return keys.filter((k) => k === opt);
+};
+
 export const filterColor = (term = '', props = []) => (
   colors.filter((color) => (
     props.some((prop) => new RegExp(term, 'gi').test(color[prop]))

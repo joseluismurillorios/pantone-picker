@@ -3,12 +3,12 @@
     class="relative w-full sm:w-auto flex items-center justify-between mt-0 rounded-lg overflow-hidden text-gray-600 border-2 border-gray-300 bg-white"
   >
     <input
-      class="h-10 pl-5 flex-1 text-sm focus:outline-none"
+      class="h-10 px-5 flex-1 text-sm focus:outline-none"
       type="search"
       name="search"
       placeholder="Search"
-      :value="term"
-      @input="updateTerm"
+      :value="text"
+      @input="onChange"
     />
     <button
       type="submit"
@@ -37,25 +37,22 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
-
 export default {
-  name: 'SearchInput',
-  computed: {
-    ...mapState({
-      term: (state) => state.filter.term,
-    }),
-  },
-  // mounted() {
-  //   this.update('eeee');
-  // },
-  methods: {
-    updateTerm(e) {
-      this.update(e.target.value);
+  name: 'searchinput',
+  props: {
+    text: {
+      type: String,
+      default: '',
     },
-    ...mapActions({
-      update: 'updateTerm', // map `this.add()` to `this.$store.dispatch('increment')`
-    }),
+    onUpdate: {
+      type: Function,
+      default: () => {},
+    },
+  },
+  methods: {
+    onChange(e) {
+      this.onUpdate(e.target.value);
+    },
   },
 };
 </script>

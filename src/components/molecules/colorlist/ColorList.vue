@@ -136,7 +136,7 @@ export default {
       this.tooltip = {
         x: rect.x + (rect.width / 2),
         // y: rect.y - rect.height + window.scrollY,
-        y: rect.y - rect.height,
+        y: rect.y - rect.height - 5,
         text: e,
         show: true,
       };

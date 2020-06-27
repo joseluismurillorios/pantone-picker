@@ -6,6 +6,7 @@ import {
   colors,
   colorGroups,
   filterColor,
+  getProps,
 } from '../helpers/helper-color';
 import { setCache, getCache } from './localstorage';
 
@@ -22,17 +23,26 @@ const localStorage = (store) => {
 
 Vue.use(Vuex);
 
+const defaultStore = {
+  colors,
+  colorGroups,
+  filter: {
+    term: '',
+    searchBy: '*',
+    options: [
+      { text: 'All', value: '*' },
+      { text: 'Name', value: 'name' },
+      { text: 'Hex', value: 'components' },
+    ],
+    results: [],
+  },
+};
+
 export default new Vuex.Store({
   strict: true,
   plugins: [localStorage],
   state: {
-    colors,
-    colorGroups,
-    filter: {
-      term: '',
-      attrs: ['name', 'component'],
-      results: [],
-    },
+    ...defaultStore,
     ...persistedState,
   },
   getters: {
@@ -58,10 +68,10 @@ export default new Vuex.Store({
     },
     updateSearchResults({ commit, state }) {
       const {
-        filter: { term, attrs = ['name'] },
+        filter: { term, searchBy },
       } = state;
       if (term.length > 2) {
-        const sarchItems = filterColor(term, attrs);
+        const sarchItems = filterColor(term, getProps(searchBy));
         commit('updateResults', sarchItems);
       }
     },
