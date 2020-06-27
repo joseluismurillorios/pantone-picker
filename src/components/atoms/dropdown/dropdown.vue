@@ -1,6 +1,6 @@
 <template>
   <div
-    class="relative w-full sm:w-auto flex items-center justify-between mt-0 rounded-lg overflow-hidden text-gray-600 border-2 border-gray-300 bg-white"
+    class="relative sm:w-auto flex items-center justify-between mt-0 rounded-lg overflow-hidden text-gray-600 border-2 border-gray-300 bg-white"
     :class="className"
   >
     <select

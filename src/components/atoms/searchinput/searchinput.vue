@@ -1,9 +1,10 @@
 <template>
   <div
     class="relative w-full sm:w-auto flex items-center justify-between mt-0 rounded-lg overflow-hidden text-gray-600 border-2 border-gray-300 bg-white"
+      :class="className"
   >
     <input
-      class="h-10 px-5 flex-1 text-sm focus:outline-none"
+      class="h-10 pl-5 flex-1 text-sm focus:outline-none min-w-0"
       type="search"
       name="search"
       placeholder="Search"
@@ -40,6 +41,10 @@
 export default {
   name: 'searchinput',
   props: {
+    className: {
+      type: String,
+      default: '',
+    },
     text: {
       type: String,
       default: '',

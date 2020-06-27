@@ -14,14 +14,16 @@
       {{ color.name.replace('PANTONE', '') }}
     </span> -->
     <p
-      class="color__hex text-2xs tracking-wider font-bold hidden md:block"
+      class="color__hex truncate text-2xs tracking-wider font-bold hidden md:block"
     >
-      {{ color.components }}
+      {{showNames ? color.name.replace('PANTONE', '') : color.components}}
     </p>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
   name: 'ColorList',
   props: {
@@ -30,6 +32,11 @@ export default {
     onEnter: Function,
     onExit: Function,
     onCopy: Function,
+  },
+  computed: {
+    ...mapState({
+      showNames: (state) => state.filter.showNames,
+    }),
   },
   methods: {
     enter(e) {

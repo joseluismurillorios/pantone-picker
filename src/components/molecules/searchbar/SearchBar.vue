@@ -1,19 +1,19 @@
 <template>
   <div class="colors__list p-4 mb-4 w-full bg-white rounded shadow-sm">
     <div class="colors__list--inner flex items-center justify-between">
-      <div>
+      <div class="hidden md:block">
         <span class="text-sm font-bold mr-2">Display: </span>
         <toggle name="showNames" :checked="showNames" :onChange="updateSearchFilter" />
       </div>
-      <div class="flex">
+      <div class="flex w-full md:w-auto">
         <dropdown
-          className="mr-4"
+          className="mr-4 min-w-1/4"
           name="searchBy"
           :options="searchOptions"
           :selected="searchBy"
           :onChange="updateSearchFilter"
         />
-        <searchinput :onUpdate="updateTerm" :text="searchTerm" />
+        <searchinput className="flex-1" :onUpdate="updateTerm" :text="searchTerm" />
       </div>
     </div>
   </div>
