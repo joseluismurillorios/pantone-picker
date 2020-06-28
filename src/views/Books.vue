@@ -258,7 +258,7 @@ export default {
         });
     },
     onBookChange(e) {
-      this.fetchBook(`/books/${e.value}`);
+      this.fetchBook(`${cdnUrl}/books/${e.value}`);
     },
     onThumbSize(e) {
       this.thumbSize = e.value;
