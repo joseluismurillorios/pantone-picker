@@ -213,6 +213,7 @@ const colorBooks = [
   },
 ];
 
+const cdnUrl = 'https://cdn.jsdelivr.net/gh/joseluismurillorios/pantone-picker@master/public';
 // https://github.com/jacobbubu/acb
 export default {
   name: 'Books',
@@ -228,7 +229,7 @@ export default {
     thumbSize: '160',
   }),
   created() {
-    this.fetchBook(`/books/${this.selected}`);
+    this.fetchBook(`${cdnUrl}/books/${this.selected}`);
   },
   methods: {
     copy(str, name) {
