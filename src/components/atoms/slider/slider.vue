@@ -3,11 +3,12 @@
     class="range range-slider rounded-lg overflow-hidden appearance-none outline-none bg-gray-300 min-w-1/4"
     :class="className"
     type="range"
-    min="80"
-    max="360"
+    :min="min"
+    :max="max"
+    :step="step"
     :value="value"
-    step="2"
-    @input="onUpdate"
+    @change="update"
+    @input="onInput"
   />
 </template>
 
@@ -15,25 +16,23 @@
 export default {
   name: 'slider',
   props: {
-    name: {
-      type: String,
-      default: '',
-    },
-    className: {
-      type: String,
-      default: '',
-    },
-    value: {
-      type: String,
-      default: '160',
-    },
-    onChange: {
-      type: Function,
-      default: () => {},
-    },
+    name: { type: String, default: '' },
+    className: { type: String, default: '' },
+    min: { type: String, default: '0' },
+    max: { type: String, default: '100' },
+    step: { type: String, default: '1' },
+    value: { type: String, default: '160' },
+    onChange: { type: Function, default: () => {} },
+    onUpdate: { type: Function, default: () => {} },
   },
   methods: {
-    onUpdate(e) {
+    update(e) {
+      this.onUpdate({
+        name: this.name,
+        value: e.target.value,
+      });
+    },
+    onInput(e) {
       this.onChange({
         name: this.name,
         value: e.target.value,

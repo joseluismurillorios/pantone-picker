@@ -1,5 +1,5 @@
 <template>
-  <div class="about p-4">
+  <div class="books overflow-y-hidden p-4">
     <div class="p-4 w-full mb-4 bg-white rounded shadow-sm">
       <div class="inline-flex items-center w-full h-10 md:w-1/2 mb-2 md:mb-0">
         <span class="text-sm font-bold mr-2 leading-3">Size: </span>
@@ -8,6 +8,8 @@
           name="thumbSize"
           :value="thumbSize"
           :onChange="onThumbSize"
+          min="50"
+          max="360"
         />
         <span class="text-xs font-bold ml-2 leading-3"> {{ thumbSize }}</span>
       </div>
@@ -24,17 +26,17 @@
     <div class="p-4 w-full bg-white rounded shadow-sm text-center">
       <template v-for="color in records">
         <div
-          class="pantone inline-block w-1/2 sm:w-1/4 md:w-40 lg:w-48 m-2"
+          class="pantone inline-block max-w-full p-2"
           :key="color.name"
-          :style="{ width: `${thumbSize}px` }"
         >
           <div class="card shadow rounded-lg overflow-hidden">
             <p
-              class="top w-full h-20 cursor-pointer flex items-center justify-center text-center"
+              class="top w-full h-20 cursor-pointer flex items-center justify-center text-center truncate"
               :style="{
                 'background-color': color.hex,
                 color: color.hex,
                 maxHeight: `${thumbSize}px`,
+                width: `${thumbSize}px`,
               }"
               v-on:click="copy(color.hex, color.name)"
             >
