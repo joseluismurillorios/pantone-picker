@@ -9,19 +9,24 @@
         :onChange="onBookChange"
       />
     </div>
-    <div class="p-4 w-full bg-white rounded shadow-sm">
+    <div class="p-4 w-full bg-white rounded shadow-sm text-center">
       <template v-for="color in records">
-        <div
-          class="pantone inline-block w-1/2 sm:w-1/4 md:w-1/8 p-2"
-          :key="color.name"
-        >
+        <div class="pantone inline-block w-1/2 sm:w-1/4 md:w-40 lg:w-48 p-2" :key="color.name">
           <div class="card shadow rounded-lg overflow-hidden">
-            <p class="top w-full h-20" :style="{ 'background-color': color.hex, color: color.hex }">
+            <p
+              class="top w-full h-20 cursor-pointer flex items-center justify-center text-center"
+              :style="{ 'background-color': color.hex, color: color.hex }"
+              v-on:click="copy(color.hex, color.name)"
+            >
               {{ color.name }}
             </p>
-            <div class="bottom p-2 leading-3">
-              <p class="text-xs truncate pb-1"><b>{{ color.name }}</b></p>
-              <p><small>{{color.hex}}</small></p>
+            <div class="bottom p-2 leading-3 text-left">
+              <p class="text-xs truncate pb-1">
+                <b>{{ color.name }}</b>
+              </p>
+              <p>
+                <small>{{ color.hex }}</small>
+              </p>
             </div>
           </div>
         </div>
@@ -34,6 +39,8 @@
 import chroma from 'chroma-js';
 
 import dropdown from '@/components/atoms/dropdown/dropdown.vue';
+
+import { copyText } from '@/helpers/helper-util';
 
 const colorBooks = [
   {
@@ -48,34 +55,34 @@ const colorBooks = [
     text: 'FOCOLTONE',
     value: 'FOCOLTONE.json',
   },
-  {
-    text: 'HKS E Process',
-    value: 'HKS E Process.json',
-  },
+  // {
+  //   text: 'HKS E Process',
+  //   value: 'HKS E Process.json',
+  // },
   {
     text: 'HKS E',
     value: 'HKS E.json',
   },
-  {
-    text: 'HKS K Process',
-    value: 'HKS K Process.json',
-  },
+  // {
+  //   text: 'HKS K Process',
+  //   value: 'HKS K Process.json',
+  // },
   {
     text: 'HKS K',
     value: 'HKS K.json',
   },
-  {
-    text: 'HKS N Process',
-    value: 'HKS N Process.json',
-  },
+  // {
+  //   text: 'HKS N Process',
+  //   value: 'HKS N Process.json',
+  // },
   {
     text: 'HKS N',
     value: 'HKS N.json',
   },
-  {
-    text: 'HKS Z Process',
-    value: 'HKS Z Process.json',
-  },
+  // {
+  //   text: 'HKS Z Process',
+  //   value: 'HKS Z Process.json',
+  // },
   {
     text: 'HKS Z',
     value: 'HKS Z.json',
@@ -190,13 +197,16 @@ export default {
   },
   data: () => ({
     records: {},
-    selected: '',
+    selected: 'PANTONE+ Pastels & Neons Uncoated.json',
     bookList: colorBooks,
   }),
   created() {
-    // this.fetchBook('/books/PANTONE+ CMYK Coated.json');
+    this.fetchBook(`/books/${this.selected}`);
   },
   methods: {
+    copy(str, name) {
+      copyText(str, name);
+    },
     fetchBook(url) {
       fetch(url)
         .then((response) => response.json())
@@ -212,9 +222,10 @@ export default {
               hex: chroma[cs](...record.components).hex(),
             };
           });
-          console.log(cs);
-          console.log(book);
-          console.log(this.records);
+          // console.log(cs);
+          // console.log(book);
+          console.log(book.pageSize);
+          // console.log(this.records);
         });
     },
     onBookChange(e) {

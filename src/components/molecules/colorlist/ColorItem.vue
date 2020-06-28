@@ -24,6 +24,8 @@
 <script>
 import { mapState } from 'vuex';
 
+import { copyText } from '@/helpers/helper-util';
+
 export default {
   name: 'ColorList',
   props: {
@@ -46,23 +48,7 @@ export default {
       this.$props.onExit(e, this.$refs[this.$props.color.components]);
     },
     copy(str, name) {
-      const el = document.createElement('textarea');
-      el.value = str;
-      el.setAttribute('readonly', '');
-      el.style.position = 'absolute';
-      el.style.left = '-9999px';
-      document.body.appendChild(el);
-      const selected = document.getSelection().rangeCount > 0
-        ? document.getSelection().getRangeAt(0)
-        : false;
-      el.select();
-      document.execCommand('copy');
-      document.body.removeChild(el);
-      if (selected) {
-        document.getSelection().removeAllRanges();
-        document.getSelection().addRange(selected);
-      }
-      this.$props.onCopy(str, name);
+      copyText(str, name, this.$props.onCopy);
     },
   },
 };

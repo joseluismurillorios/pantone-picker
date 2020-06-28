@@ -1,9 +1,11 @@
 <template>
   <div id="app" class="font-sans bg-gray-200">
     <Router />
-    <transition :name="transitionName">
-      <router-view class="child-view mt-20 sm:mt-0 w-full z-1 overflow-x-hidden" />
-    </transition>
+    <div class="router overflow-x-hidden w-full">
+      <transition :name="transitionName">
+        <router-view class="child-view mt-20 sm:mt-0 w-full z-1" />
+      </transition>
+    </div>
     <!-- <router-view/> -->
   </div>
 </template>
@@ -43,13 +45,13 @@ export default {
 }
 
 .fade-enter-active, .fade-leave-active {
-  transition: opacity 1s ease;
+  transition: opacity 0.75s ease;
 }
 .fade-enter, .fade-leave-active {
   opacity: 0;
 }
 .child-view {
-  transition: all 1s cubic-bezier(.55,0,.1,1);
+  transition: all 0.75s cubic-bezier(.55,0,.1,1);
 }
 .slide-left-enter, .slide-right-leave-active {
   opacity: 0;
