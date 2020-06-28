@@ -1,5 +1,7 @@
 <template>
-  <nav class="sticky top-0 z-10 flex items-center justify-between flex-wrap bg-white p-6">
+  <nav
+    class="fixed sm:sticky w-full top-0 z-10 flex items-center justify-between flex-wrap bg-white p-6"
+  >
     <div class="flex items-center flex-shrink-0 text-black mr-10">
       <span class="font-semibold text-xl tracking-tight">Pantone Picker</span>
     </div>

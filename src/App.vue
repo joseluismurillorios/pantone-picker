@@ -2,7 +2,7 @@
   <div id="app" class="font-sans bg-gray-200">
     <Router />
     <transition :name="transitionName">
-      <router-view class="child-view w-full overflow-x-hidden" />
+      <router-view class="child-view mt-20 sm:mt-0 w-full z-1 overflow-x-hidden" />
     </transition>
     <!-- <router-view/> -->
   </div>
@@ -33,12 +33,13 @@ export default {
 </script>
 
 <style lang="scss">
-html {
-  overflow-x: hidden;
-}
 #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.child-view {
+  overflow-x: hidden;
 }
 
 .fade-enter-active, .fade-leave-active {
