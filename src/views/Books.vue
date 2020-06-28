@@ -9,7 +9,7 @@
           :value="thumbSize"
           :onChange="onThumbSize"
         />
-        <span class="text-xs font-bold ml-2 leading-3"> {{thumbSize}}</span>
+        <span class="text-xs font-bold ml-2 leading-3"> {{ thumbSize }}</span>
       </div>
       <div class="inline-block w-full md:w-1/2 ">
         <dropdown
@@ -24,19 +24,23 @@
     <div class="p-4 w-full bg-white rounded shadow-sm text-center">
       <template v-for="color in records">
         <div
-          class="pantone inline-block w-1/2 sm:w-1/4 md:w-40 lg:w-48 p-2"
+          class="pantone inline-block w-1/2 sm:w-1/4 md:w-40 lg:w-48 m-2"
           :key="color.name"
           :style="{ width: `${thumbSize}px` }"
         >
           <div class="card shadow rounded-lg overflow-hidden">
             <p
               class="top w-full h-20 cursor-pointer flex items-center justify-center text-center"
-              :style="{ 'background-color': color.hex, color: color.hex }"
+              :style="{
+                'background-color': color.hex,
+                color: color.hex,
+                maxHeight: `${thumbSize}px`,
+              }"
               v-on:click="copy(color.hex, color.name)"
             >
               {{ color.name }}
             </p>
-            <div class="bottom p-2 leading-3 text-left">
+            <div v-if="+thumbSize > 80" class="bottom p-2 leading-3 text-left">
               <p v-if="+thumbSize > 100" class="text-xs truncate pb-1">
                 <b v-if="+thumbSize > 160">{{ prefix }}</b>
                 <b>{{ color.name.replace(prefix, '') }}</b>
@@ -69,10 +73,10 @@ const colorBooks = [
     text: 'DIC Color Guide',
     value: 'DIC Color Guide.json',
   },
-  {
-    text: 'FOCOLTONE',
-    value: 'FOCOLTONE.json',
-  },
+  // {
+  //   text: 'FOCOLTONE',
+  //   value: 'FOCOLTONE.json',
+  // },
   // {
   //   text: 'HKS E Process',
   //   value: 'HKS E Process.json',
@@ -260,5 +264,4 @@ export default {
 };
 </script>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>
