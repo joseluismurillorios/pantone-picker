@@ -9,6 +9,7 @@
       :value="selected"
       @change="changes"
     >
+      <option v-if="placeholder !== ''" value="" disabled>{{placeholder}}</option>
       <option v-for="option in options" :key="option.text" :value="option.value">
         {{ option.text }}
       </option>
@@ -42,6 +43,10 @@ export default {
     className: {
       type: String,
       default: '',
+    },
+    placeholder: {
+      type: String,
+      default: 'Select...',
     },
     selected: {
       type: String,
