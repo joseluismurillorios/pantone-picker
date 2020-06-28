@@ -1,5 +1,5 @@
 <template>
-  <div :class="['color__item mb-1', classProp]">
+  <div :class="['color__item mb-1 text-center', classProp]">
     <p
       class="color__preview h-8 md:h-5 text-2xs cursor-pointer flex items-center justify-center text-center"
       :style="{ 'background-color': color.components, 'color': color.components }"

@@ -1,7 +1,10 @@
 <template>
   <div id="app" class="font-sans bg-gray-200">
     <Router />
-    <router-view/>
+    <transition :name="transitionName">
+      <router-view class="child-view w-full overflow-x-hidden" />
+    </transition>
+    <!-- <router-view/> -->
   </div>
 </template>
 
@@ -15,12 +18,48 @@ export default {
   components: {
     Router,
   },
+  data() {
+    return {
+      transitionName: 'slide-left',
+    };
+  },
+  beforeRouteUpdate(to, from, next) {
+    const toDepth = to.path.split('/').length;
+    const fromDepth = from.path.split('/').length;
+    this.transitionName = toDepth < fromDepth ? 'slide-right' : 'slide-left';
+    next();
+  },
 };
 </script>
 
 <style lang="scss">
+html {
+  overflow-x: hidden;
+}
 #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 1s ease;
+}
+.fade-enter, .fade-leave-active {
+  opacity: 0;
+}
+.child-view {
+  transition: all 1s cubic-bezier(.55,0,.1,1);
+}
+.slide-left-enter, .slide-right-leave-active {
+  opacity: 0;
+  transform: translate(30px, 0);
+}
+.slide-left-leave-active {
+  position: absolute;
+  width: 100%;
+}
+.slide-left-leave-active, .slide-right-enter {
+  opacity: 0;
+  transform: translate(-30px, 0);
 }
 </style>

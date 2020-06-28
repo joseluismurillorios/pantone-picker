@@ -32,6 +32,12 @@
             </router-link>
             <div class="h-0 my-2 border border-solid border-t-0 border-gray-200"></div>
             <router-link
+              to="/books"
+              class="text-sm py-2 px-4 font-normal block w-full whitespace-no-wrap bg-transparent text-gray-800 hover:bg-gray-200"
+            >
+              Books
+            </router-link>
+            <router-link
               to="/about"
               class="text-sm py-2 px-4 font-normal block w-full whitespace-no-wrap bg-transparent text-gray-800 hover:bg-gray-200"
             >
@@ -48,6 +54,12 @@
           class="block mt-4 md:inline-block md:mt-0 text-gray-800 hover:text-black font-bold mr-0 md:mr-8"
         >
           Home
+        </router-link>
+        <router-link
+          to="/books"
+          class="block mt-4 md:inline-block md:mt-0 text-gray-800 hover:text-black font-bold mr-0 md:mr-8"
+        >
+          Books
         </router-link>
         <router-link
           to="/about"

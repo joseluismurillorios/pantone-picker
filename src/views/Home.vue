@@ -1,5 +1,5 @@
 <template>
-  <div class="home relative p-4">
+  <div class="home p-4">
     <!-- <alert /> -->
     <SearchBar />
     <ColorList />

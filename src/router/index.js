@@ -18,10 +18,28 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
   },
+  {
+    path: '/books',
+    name: 'Books',
+    component: () => import(/* webpackChunkName: "books" */ '../views/Books.vue'),
+  },
 ];
 
 const router = new VueRouter({
   routes,
+  // scrollBehavior(to, from, savedPosition) {
+  //   if (savedPosition) {
+  //     return savedPosition;
+  //   }
+  //   return { x: 0, y: 0 };
+  // },
+  scrollBehavior() {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve({ x: 0, y: 0 });
+      }, 500);
+    });
+  },
 });
 
 export default router;

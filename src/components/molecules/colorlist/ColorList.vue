@@ -131,6 +131,9 @@ export default {
       this.$set(this.tooltip, 'show', false);
     },
     showTooltip(e, elem) {
+      if (!elem) {
+        return;
+      }
       const rect = elem.getBoundingClientRect();
       this.tooltip = {
         x: rect.x + (rect.width / 2),
