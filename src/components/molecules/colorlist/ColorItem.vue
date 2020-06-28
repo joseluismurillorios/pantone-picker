@@ -27,7 +27,7 @@ import { mapState } from 'vuex';
 import { copyText } from '@/helpers/helper-util';
 
 export default {
-  name: 'ColorList',
+  name: 'ColorItem',
   props: {
     color: Object,
     classProp: String,

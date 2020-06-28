@@ -18,7 +18,7 @@
 // import tooltip from '@/components/atoms/tooltip/tooltip.vue';
 
 export default {
-  name: 'dropdown',
+  name: 'popover',
   components: {
     // tooltip,
   },
